@@ -42,6 +42,29 @@ const solutions = {
       }
     }
     return true;
+  },
+  isNumericArraySorted: arr => {
+    for ( let i = 0; i < arr.length - 1; i++ ) {
+      if ( arr[i + 1] < arr[i] ) { 
+        return false;
+      }
+    }
+    return true;
+  },
+  sumExists: (arr, target) => {
+    arr.sort((a, b) => a - b);
+    const pairs = [];
+    for ( let i = 0; i < arr.length; i++ ) {
+      for ( let j = i + 1; j < arr.length; j++ ) {
+        let sum = arr[i] + arr[j];
+        if ( sum > target ) break; // If sum is greater than target, there is no need to go further
+        if ( sum === target ) {
+          pairs.push([arr[i], arr[j]]);
+          break;
+        }
+      }
+    }
+    return pairs;
   }
 };
 

@@ -17,6 +17,7 @@ const inputGenerator = {
     return arr;
   },
   getRandomNumsArray: size => {
+
     const arr = [];
     while ( arr.length < size ) {
       arr.push(getRandomInt(INT_ARRAY_MAX_VALUE));
@@ -25,16 +26,33 @@ const inputGenerator = {
   },
   getPalindrome: size => {
     let str = '';
-    for ( let i = 0; i < Math.floor(size / 2); i++ ) { 
-      str += getRandomChar(); 
+
+    if ( size <= 0 ) {
+      return str;
     }
-    // Reverse string to be added at the end for symmetry
-    const reversedString = str.split("").reverse().join("");
-    // There is a 50% chance of this string being a palindrome 
-    const secondHalf = Math.random() >= 0.5 ? reversedString : str;
-    // Add a copy of the string to itself or the reversed copy in case of a palindrome
-    str += ( size % 2 !== 0 ) ? getRandomChar() + secondHalf : secondHalf;
+
+    if ( size > 1 ) {
+      for ( let i = 0; i < Math.floor(size / 2); i++ ) {
+        str += getRandomChar();
+      }
+      // Reverse string to be added at the end for symmetry
+      const reversedString = str.split("").reverse().join("");
+      // There is a 50% chance of this string being a palindrome 
+      const secondHalf = Math.random() >= 0.5 ? reversedString : str;
+      // Add a copy of the string to itself or the reversed copy in case of a palindrome
+      str += ( size % 2 !== 0 ) ? getRandomChar() + secondHalf : secondHalf;
+    } else {
+      str = getRandomChar();
+    }
     return str;
+  },
+
+  getNumericArraySorted: size => {
+    const arr = inputGenerator.getRandomNumsArray(size);
+    if ( Math.random() >= 0.5 ) {
+      arr.sort((a, b) => a - b);
+    }
+    return arr;
   }
 };
 

@@ -11,9 +11,10 @@ const htmlGenerator = challenges => {
   }
 
   const baseCode = `
-    const axios = require('axios');
-    const _ = require('lodash');
     const fs = require('fs');
+    const axios = require('axios');
+
+    const SERVER_ADDRESS = 'localhost'; // Substituir pelo endereco do servidor
     
     // Escreva seu codigo nas funcoes abaixo
     const solution_1 = input => {
@@ -28,58 +29,35 @@ const htmlGenerator = challenges => {
       return input;
     };
     
-    const SERVER_ADDRESS = 'localhost'; // Substituir pelo endereco do servidor
-    
-    const getInputs = async () => {
-      let res;
+    // Nao modifique este codigo
+    const getQuestions = async () => {
       try {
-        res = await axios.get(\`http://\${SERVER_ADDRESS}:3000/api/questions\`);
+        const res = await axios.get(\`http://\${SERVER_ADDRESS}:3000/api/questions\`);
+        console.table(
+          res.data.questions.map(question => {
+            return { Questao: question};
+          })
+        );
+        fs.writeFileSync('id.json', JSON.stringify({ id : res.data.id }));
       } catch (err) {
         console.log('Nao foi possivel acessar o servidor, tente mais tarde');
         return;
       }
-    
-      console.table(
-        res.data.map(data => {
-          return { Questao: data.question };
-        })
-      );
-    
-      // Write gathered inputs to local file
-      fs.writeFileSync('./data.json', JSON.stringify(res.data));
-    };
-    
-    const run = async () => {
-      // Terminal colors
-      const red = '\\x1b[31m';
-      const green = '\\x1b[32m';
-      const yellow = '\\x1b[33m';
-      const reset = '\\x1b[0m';
-    
-      const pass = \`[\${green}pass\${reset}]\`;
-      const fail = \`[\${red}fail\${reset}]\`;
-    
-      if ( fs.existsSync('./data.json') ) {
-        const questions = JSON.parse(fs.readFileSync('./data.json'));
-        // Run test cases
-        for ( let i = 0; i < questions.length; i++ ) {
-          const { question, inputs, outputs } = questions[i];
-          console.log(\`\\n\${yellow}\${i + 1}. \${question}\${reset}\\n\`);
-          for ( let j = 0; j < inputs.length; j++ ) {
-            try {
-              let answer = eval(\`solution_\${i + 1}(_.clone(inputs[\${j}]))\`);
-              let passed = _.isEqual(answer, outputs[j]) ? pass : fail;
-              console.log(''.padEnd(5), 'test case', j + 1, ''.padEnd(10, '.'), passed);
-            } catch (err) {
-              console.log(\`\${red}\${err.message}\${reset}\`);
-            }
-          }
-        }
-      } else {
-        getInputs();
-      }
-      console.log();
     }
+
+    const run = async () => {
+      if ( fs.existsSync('id.json') ) {
+        const { id } = JSON.parse(fs.readFileSync('id.json'));
+        const solutions = [solution_1.toString(), solution_2.toString(), solution_3.toString()];
+        const res = await axios.post(\`http://\${SERVER_ADDRESS}:3000/api/solution\`, {
+          id: id,
+          solutions: solutions
+        });
+        console.log(res.data);
+      } else {
+        getQuestions();
+      }
+    };
     
     run();
   `;

@@ -108,9 +108,34 @@ module.exports = [
       inputGenerator.getPalindrome(ARRAY_SIZE),
       inputGenerator.getPalindrome(ARRAY_SIZE + 1),
       inputGenerator.getPalindrome(ARRAY_SIZE + 1),
-      inputGenerator.getPalindrome(ARRAY_SIZE + 1)
+      inputGenerator.getPalindrome(ARRAY_SIZE + 1),
+      inputGenerator.getPalindrome(ARRAY_SIZE  * 100)
     ],
     'output-function': solutions.isPalindrome,
+    outputs: []
+  },
+  {
+    question: 'Checar se o array numerico esta ordenado de maneira ascendente',
+    inputs: [
+      inputGenerator.getNumericArraySorted(ARRAY_SIZE),
+      inputGenerator.getNumericArraySorted(ARRAY_SIZE),
+      inputGenerator.getNumericArraySorted(ARRAY_SIZE),
+      inputGenerator.getNumericArraySorted(ARRAY_SIZE),
+      inputGenerator.getNumericArraySorted(ARRAY_SIZE),
+    ],
+    'output-function': solutions.isNumericArraySorted,
+    outputs: []
+  },
+  {
+    question: 'Retornar todos os pares de numeros cuja a soma seja igual a 6 no formato array de arrays. Exemplo: input: [0, 2, 1, 4, 10, 5], output: [[1,5],[2,4]]. Caso nao exista nenhum par, retornar um array vazio.',
+    inputs: [
+      inputGenerator.getRandomNumsArrayNoRepeat(ARRAY_SIZE),
+      inputGenerator.getRandomNumsArrayNoRepeat(ARRAY_SIZE),
+      inputGenerator.getRandomNumsArrayNoRepeat(ARRAY_SIZE),
+      inputGenerator.getRandomNumsArrayNoRepeat(ARRAY_SIZE),
+      inputGenerator.getRandomNumsArrayNoRepeat(ARRAY_SIZE),
+    ],
+    'output-function': input => solutions.sumExists(input, 6),
     outputs: []
   }
 ];
