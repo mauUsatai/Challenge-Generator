@@ -1,4 +1,4 @@
-const uuid = require('uuid/v4');
+const uuid = require('uuid').v4;
 const client = require('../database/client');
 const { pickQuestions } = require('../generators/generator');
 
