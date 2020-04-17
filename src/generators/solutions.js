@@ -2,22 +2,45 @@ const solutions = {
   sumAllNumericArrayElements: arr => {
     return arr.reduce((acc, element) => acc + element);
   },
+
+  getMergedNumericArraySorted: ([arr1, arr2]) => {
+    const mergedArray = [...arr1, ...arr2];
+    mergedArray.sort((a, b) => a - b);
+    return mergedArray;
+  },
+
   getNumericArrayMaxNum: arr => {
     return Math.max(...arr);
   },
+  
   getNumericArrayMinNum: arr => {
     return Math.min(...arr);
   },
+
   reverseArray: arr => {
     const copy = arr.slice(0);
     return copy.reverse();
   },
+
   filterOddNumbers: arr => {
     return arr.filter(element => element % 2 !== 0 ? true : false);
   },
+
   filterEvenNumbers: arr => {
     return arr.filter(element => element % 2 === 0 ? true : false);
   },
+
+  getCharsNoRepeatSorted: string => {
+    const uniqueChars = [];
+    for ( let char of string ) {
+      if ( ! uniqueChars.includes(char) ) {
+        uniqueChars.push(char);
+      }
+    }
+    uniqueChars.sort((a, b) => a.localeCompare(b));
+    return uniqueChars;
+  },
+
   duplicateNumberExists: arr => {
     const copy = arr.slice(0);
     copy.sort((a, b) => a - b);
@@ -28,12 +51,14 @@ const solutions = {
     }
     return false;
   },
+
   filterEvenAndOddSums: arr => {
     return [ 
       solutions.sumAllNumericArrayElements(solutions.filterEvenNumbers(arr)), 
       solutions.sumAllNumericArrayElements(solutions.filterOddNumbers(arr))
     ];
   },
+
   isPalindrome: str => {
     const half = Math.floor(str.length / 2);
     for ( let i = 0; i < half; i++ ) {
@@ -43,6 +68,7 @@ const solutions = {
     }
     return true;
   },
+
   isNumericArraySorted: arr => {
     for ( let i = 0; i < arr.length - 1; i++ ) {
       if ( arr[i + 1] < arr[i] ) { 
@@ -51,6 +77,7 @@ const solutions = {
     }
     return true;
   },
+
   sumExists: (arr, target) => {
     arr.sort((a, b) => a - b);
     const pairs = [];

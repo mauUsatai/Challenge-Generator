@@ -16,14 +16,22 @@ const inputGenerator = {
     }
     return arr;
   },
-  getRandomNumsArray: size => {
 
+  getRandomNumsArrayNoRepeatSorted: size => {
+    return [
+      inputGenerator.getRandomNumsArrayNoRepeat(size).sort((a, b) => a - b),
+      inputGenerator.getRandomNumsArrayNoRepeat(size).sort((a, b) => a - b)
+    ];
+  },
+
+  getRandomNumsArray: size => {
     const arr = [];
     while ( arr.length < size ) {
       arr.push(getRandomInt(INT_ARRAY_MAX_VALUE));
     }
     return arr;
   },
+
   getPalindrome: size => {
     let str = '';
 
@@ -53,6 +61,14 @@ const inputGenerator = {
       arr.sort((a, b) => a - b);
     }
     return arr;
+  },
+
+  getRandomString: size => {
+    let string = '';
+    for ( let i = 0; i < size; i++ ) {
+      string += getRandomChar();
+    }
+    return string;
   }
 };
 

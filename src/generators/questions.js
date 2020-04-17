@@ -137,5 +137,31 @@ module.exports = [
     ],
     'output-function': input => solutions.sumExists(input, 6),
     outputs: []
+  },
+  {
+    question: 'Retornar todas a letras contidas na string em ordem alfabetica, sem repeticao.',
+    inputs: [
+      inputGenerator.getRandomString(ARRAY_SIZE),
+      inputGenerator.getRandomString(ARRAY_SIZE),
+      inputGenerator.getRandomString(ARRAY_SIZE),
+      inputGenerator.getRandomString(ARRAY_SIZE),
+      inputGenerator.getRandomString(ARRAY_SIZE),
+      inputGenerator.getRandomString(ARRAY_SIZE)
+    ],
+    'output-function': solutions.getCharsNoRepeatSorted,
+    outputs: []
+  },
+  {
+    question: 'Dados dois arrays numerios em ordem ascendente, retorne a uniao de ambos',
+    inputs: [
+      inputGenerator.getRandomNumsArrayNoRepeatSorted(ARRAY_SIZE),
+      inputGenerator.getRandomNumsArrayNoRepeatSorted(ARRAY_SIZE),
+      inputGenerator.getRandomNumsArrayNoRepeatSorted(ARRAY_SIZE),
+      inputGenerator.getRandomNumsArrayNoRepeatSorted(ARRAY_SIZE),
+      inputGenerator.getRandomNumsArrayNoRepeatSorted(ARRAY_SIZE),
+      inputGenerator.getRandomNumsArrayNoRepeatSorted(ARRAY_SIZE),
+    ],
+    'output-function': solutions.getMergedNumericArraySorted,
+    outputs: []
   }
 ];
